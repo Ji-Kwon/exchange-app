@@ -1,13 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import globalStyles from '../styles/globalStyles';
 
 const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Home Screen</Text>
-      <Text style={styles.title}>Exchange</Text>
+    <>
+    <View style={globalStyles.container}>
+        <View>
+            <Text style={styles.title}>Exchange</Text>
+        </View>
+        <View style={styles.image}>
+            <Image
+            source ={{ uri: 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png', }} 
+            style={{ width: 350, height: 200, borderWidth: "5", borderRadius: '5', overflow: 'hidden',}}
+            resizeMode="contain" />
+            
+        </View>
+        
     </View>
+    </>
   );
 };
 
@@ -18,12 +29,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F6DCAC',
   },
-  text: {
-    fontSize: 24,
+  image: {
+    marginTop: '50',
+    flex: 1,
+    alignItems: "center",
+ 
+  },
+  titleContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
   title: {
-    fontFamily: 'SuperMagic-L3XVn',
-    fontSize: 60,
+    marginTop: '20',
+    fontFamily: 'SuperMagic-L3XVn', // not working
+    fontSize: 50,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
   },
 });
 
