@@ -7,6 +7,7 @@ const HomeScreen = () => {
     <>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.container}>
+            
               <View>
                   <Text style={styles.title}>Exchange</Text>
               </View>
@@ -19,11 +20,9 @@ const HomeScreen = () => {
               <View style={styles.background}>
                 <Text style={styles.description}>Description</Text>
                 <Text style={{ fontSize: 20, marginLeft: 10,}}>alksdjfhalskdjfhalskdjfhalsdjfkhasl</Text>
-
-                
+   
               </View>
-          
-              
+
           </View>
         </ScrollView>
     </>
@@ -88,11 +87,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   title: {
-    marginTop: '20',
+    
     fontFamily: 'SuperMagic-L3XVn', // not working
     fontSize: 50,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+
   },
 });
 
