@@ -5,31 +5,36 @@ import globalStyles from '../styles/globalStyles';
 const HomeScreen = () => {
   return (
     <>
-      <View style={styles.container}>
-          <View>
-              <Text style={styles.title}>Exchange</Text>
-          </View>
-          <View style={styles.image}>
-              <Image
-              source ={{ uri: 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png', }} 
-              style={styles.picture}
-              resizeMode="contain" />
-          </View>
-          <View style={styles.background}>
-            <Text style={styles.description}>Description</Text>
-            <Text style={{ fontSize: 20, marginLeft: 10,}}>alksdjfhalskdjfhalskdjfhalsdjfkhasl</Text>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.container}>
+              <View>
+                  <Text style={styles.title}>Exchange</Text>
+              </View>
+              <View style={styles.image}>
+                  <Image
+                  source ={{ uri: 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png', }} 
+                  style={styles.picture}
+                  resizeMode="contain" />
+              </View>
+              <View style={styles.background}>
+                <Text style={styles.description}>Description</Text>
+                <Text style={{ fontSize: 20, marginLeft: 10,}}>alksdjfhalskdjfhalskdjfhalsdjfkhasl</Text>
 
-            
-          </View>
-      
+                
+              </View>
           
-      </View>
-      
+              
+          </View>
+        </ScrollView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+  },
   container: {
     flex: 1,
     backgroundColor: "#F6DCAC",
