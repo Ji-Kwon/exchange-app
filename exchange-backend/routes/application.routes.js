@@ -9,7 +9,7 @@ router.get('/:id', applicationController.getApplicationByID);
 
 router.post('/', applicationController.createApplication);
 
-router.put('/', applicationController.updateApplication);
+router.put('/:id', applicationController.updateApplication);
 
 router.delete('/:id', applicationController.deleteApplication);
 

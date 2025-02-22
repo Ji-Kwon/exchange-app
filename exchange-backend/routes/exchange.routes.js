@@ -9,7 +9,7 @@ router.get('/:id', exchangeController.getExchangeById);
 
 router.post('/', exchangeController.createExchange);
 
-router.put('/', exchangeController.updateExchange);
+router.put('/:id', exchangeController.updateExchange);
 
 router.delete('/:id', exchangeController.deleteExchangeById);
 
