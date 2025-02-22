@@ -2,9 +2,31 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import globalStyles from '../styles/globalStyles';
 import globalLabels from '../styles/labels';
+import React, { useState, useEffect } from 'react';
+
+
+
 
 const HomeScreen = () => {
+
+  const [labels, setLabels] = useState([]);
+
+  useEffect(() => {
+    // Placeholder data to simulate database labels
+    const placeholderLabels = ["Testing", "Accommodations", "Ballsack licker", "Gay buttsex man"];
+    
+    // Simulate database fetch with a delay
+    const fetchLabels = async () => {
+      setTimeout(() => {
+        setLabels(placeholderLabels);  // Use placeholder data for now
+      }, 1000);  // Delay to simulate loading
+    };
+
+    fetchLabels();
+  }, []);
+
   return (
+    
     <>
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.container}>
@@ -25,8 +47,12 @@ const HomeScreen = () => {
               </View>
               <View style={styles.exchange}>
                   <Text style={styles.exchangeHeading}>Exchange Offered</Text>
-                  
+                  <View>
+                      
+                  </View>
               </View>
+
+          
 
           </View>
         </ScrollView>
