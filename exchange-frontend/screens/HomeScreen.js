@@ -5,7 +5,8 @@ import globalStyles from '../styles/globalStyles';
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-    <Text style={styles.text}>Home Screen</Text>
+      <Text style={styles.text}>Home Screen</Text>
+      <Text style={styles.title}>Exchange</Text>
     </View>
   );
 };
@@ -19,6 +20,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 24,
+  },
+  title: {
+    fontFamily: 'SuperMagic-L3XVn',
+    fontSize: 60,
   },
 });
 
