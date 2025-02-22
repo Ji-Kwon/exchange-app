@@ -4,10 +4,10 @@ const verifyToken = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
-router.get('/', verifyToken, reviewController.getAllReviews);
+router.get('/', reviewController.getAllReviews);
 
-router.get('/:id', verifyToken, reviewController.getReviewById);
+router.get('/:id', reviewController.getReviewById);
 
-router.post('/', verifyToken, reviewController.createReview);
+router.post('/', reviewController.createReview);
 
 module.exports = router;

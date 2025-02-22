@@ -4,14 +4,14 @@ const verifyToken = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
-router.get('/', verifyToken, messageController.getAllMessages);
+router.get('/', messageController.getAllMessages);
 
-router.get('/:id', verifyToken, messageController.getMessageById);
+router.get('/:id', messageController.getMessageById);
 
-router.post('/', verifyToken, messageController.createMessage);
+router.post('/', messageController.createMessage);
 
-router.put('/:id', verifyToken, messageController.updateMessage);
+router.put('/:id', messageController.updateMessage);
 
-router.delete('/:id', verifyToken, messageController.deleteMessage);
+router.delete('/:id', messageController.deleteMessage);
 
 module.exports = router;
