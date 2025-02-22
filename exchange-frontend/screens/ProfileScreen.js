@@ -1,24 +1,20 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+// src/screens/ProfileScreen.js
+import React, { useContext } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { AuthContext } from '../src/context/AuthContext';
 import globalStyles from '../styles/globalStyles';
 
 const ProfileScreen = () => {
+  const { logout } = useContext(AuthContext);
+
   return (
     <View style={globalStyles.container}>
-    <Text style={styles.text}>Home Screen</Text>
+      <Text style={globalStyles.title}>Profile Screen</Text>
+      <TouchableOpacity style={globalStyles.button} onPress={logout}>
+        <Text style={globalStyles.buttonText}>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 24,
-  },
-});
 
 export default ProfileScreen;
