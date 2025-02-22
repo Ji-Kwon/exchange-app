@@ -5,7 +5,7 @@ import globalStyles from '../styles/globalStyles';
 const MessagesScreen = () => {
   return (
     <View style={globalStyles.container}>
-    <Text style={styles.text}>Home Screen</Text>
+    <Text style={styles.text}>Message Screen</Text>
     </View>
   );
 };
