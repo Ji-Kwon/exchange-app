@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import globalStyles from '../styles/globalStyles';
+import globalLabels from '../styles/labels';
 
 const HomeScreen = () => {
   return (
@@ -22,6 +23,10 @@ const HomeScreen = () => {
                 <Text style={{ fontSize: 20, marginLeft: 10,}}>alksdjfhalskdjfhalskdjfhalsdjfkhasl</Text>
    
               </View>
+              <View style={styles.exchange}>
+                  <Text style={styles.exchangeHeading}>Exchange Offered</Text>
+                  
+              </View>
 
           </View>
         </ScrollView>
@@ -31,27 +36,37 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    paddingVertical: 20,
-    paddingHorizontal: 20,
+   
+   
   },
   container: {
-    flex: 1,
+    paddingBottom: 20,
+    alignItems: "center",
     backgroundColor: "#F6DCAC",
     
   },
   background: {
-    flex: 1,
-    marginLeft: 20,
-    marginTop: -180,
-    width: 350,
-    justifyContent: 'flex-start',
-    alignItems: 'left',
+    marginVertical: 20,
+    padding: 15,
     backgroundColor: "#FBEED6",
     borderRadius: 20,
     overflow: 'hidden',
-    shadowCOlor: "#000",
+    shadowColor: "#000",         // Fixed typo
+    shadowOpacity: 0.2,
     shadowRadius: 4,
-    
+    elevation: 5,
+    width: 350,
+  },
+  exchange: { 
+    marginLeft: 15,
+    marginTop: 20,
+    width: 350,
+    alignItems: 'flex-start',  // Aligns to the left
+  },
+  exchangeHeading: {
+    textAlign: 'left',        // Centers text within container
+    fontSize: 35,
+    fontWeight: 'bold',
   },
 
   description: {
@@ -66,7 +81,6 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: 50,
-    flex: 1,
     alignItems: "center",
  
   },
@@ -82,11 +96,12 @@ const styles = StyleSheet.create({
   },
 
   titleContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    
+
   },
   title: {
+    marginTop: 50,
+    marginRight: 120,
     
     fontFamily: 'SuperMagic-L3XVn', // not working
     fontSize: 50,
