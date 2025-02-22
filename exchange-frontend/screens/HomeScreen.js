@@ -43,8 +43,8 @@ const HomeScreen = () => {
               <View style={styles.background}>
                 <Text style={styles.description}>Description</Text>
                 <Text style={{ fontSize: 20, marginLeft: 10,}}>alksdjfhalskdjfhalskdjfhalsdjfkhasl</Text>
-   
               </View>
+              
               <View style={styles.exchange}>
                   <Text style={styles.exchangeHeading}>Exchange Offered</Text>
                   <View>
@@ -52,13 +52,14 @@ const HomeScreen = () => {
                   </View>
               </View>
 
-          
-
           </View>
         </ScrollView>
     </>
   );
 };
+/*
+The labels are supposed to be imported in the <View style exchange />.
+*/
 
 const styles = StyleSheet.create({
   scrollContainer: {
