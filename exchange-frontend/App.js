@@ -10,6 +10,7 @@ import MessagesScreen from './screens/MessagesScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import LoginScreen from './screens/LoginScreen';
 import { AuthProvider, AuthContext } from './src/context/AuthContext';
+import SignupScreen from './screens/SignupScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -41,6 +42,7 @@ const AppTabs = () => {
             />
           );
         },
+        headerShown: false,
         tabBarShowLabel: false,
         tabBarActiveTintColor: '#028391',
         tabBarInactiveTintColor: '#F6DCAC',
@@ -73,7 +75,10 @@ const MainNavigator = () => {
         {isLoggedIn ? (
           <Stack.Screen name="AppTabs" component={AppTabs} />
         ) : (
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

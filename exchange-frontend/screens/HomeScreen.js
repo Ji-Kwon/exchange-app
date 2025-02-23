@@ -1,10 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
-import globalStyles from '../styles/globalStyles';
-import globalLabels from '../styles/labels';
 import React, { useState, useEffect } from 'react';
-
-
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 
 
 const HomeScreen = () => {

@@ -1,19 +1,48 @@
-// src/screens/LoginScreen.js
-import React, { useContext } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { AuthContext } from '../src/context/AuthContext';
+// screens/LoginScreen.js
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const LoginScreen = () => {
-  const { login } = useContext(AuthContext);
+const LoginScreen = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://172.20.10.5:5001/api/auth/login', {
+        email,
+        password,
+      });
+      const token = response.data.token;
+      await AsyncStorage.setItem('token', token);
+      Alert.alert('Success', 'Logged in successfully!');
+    } catch (error) {
+      Alert.alert('Error', error.response.data.error || 'Login failed');
+    }
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
-      <TextInput placeholder="Username" style={styles.input} />
-      <TextInput placeholder="Password" style={styles.input} secureTextEntry />
-      <TouchableOpacity style={styles.button} onPress={login}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+      <Button title="Login" onPress={handleLogin} />
+      <Button
+        title="Don't have an account? Sign up"
+        onPress={() => navigation.navigate('Signup')}
+      />
     </View>
   );
 };
@@ -22,31 +51,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    paddingHorizontal: 20,
+    padding: 20,
   },
   title: {
     fontSize: 32,
     marginBottom: 20,
+    textAlign: 'center',
   },
   input: {
-    width: '100%',
-    padding: 15,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  button: {
-    backgroundColor: '#028391',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+    borderWidth: 1,
+    padding: 10,
+    marginBottom: 20,
   },
 });
 

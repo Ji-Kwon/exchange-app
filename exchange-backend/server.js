@@ -1,12 +1,20 @@
 const express = require('express');
+const corsMiddleware = require('./middlewares/cors.middleware');
+const authRoutes = require('./routes/auth.routes');
 const sequelize = require('./config/database');
-
 const app = express();
+
+// Use CORS Middleware
+app.use(corsMiddleware);
+
+// Other middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 // Routes
 app.use('/api/users', require('./routes/user.routes'));
-app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/auth', authRoutes);
 app.use('/api/message', require('./routes/message.routes'));
 app.use('/api/exchange', require('./routes/exchange.routes'));
 app.use('/api/review', require('./routes/review.routes'));
@@ -31,4 +39,4 @@ sequelize.sync({ alter: true }).then(() => {
 
 // Start Server
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
