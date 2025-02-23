@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, FlatList, Dimensions } from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, Image, ScrollView, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import ListLabels from '../components/ListLabels';
+import { ConversationsContext } from '../src/context/ConversationsContext'; 
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -19,7 +20,9 @@ const images = [
   },
 ];
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
+  const { addConversation } = useContext(ConversationsContext);
+
   const renderItem = ({ item }) => (
     <View style={styles.picture}>
       {item.source ? (
@@ -59,9 +62,26 @@ const HomeScreen = () => {
             <Text style={styles.exchangeHeading}>Exchange Offered</Text>
             <ListLabels />
           </View>
-
         </View>
       </ScrollView>
+
+      {/* Message Button */}
+      <TouchableOpacity 
+        style={styles.messageButton}
+        onPress={() => {
+          // Add the conversation if it doesn't exist yet
+          const contact = {
+            id: 101, 
+            name: 'Chat Support', 
+            profilePic: 'https://via.placeholder.com/100'
+          };
+          addConversation(contact);
+          // Navigate to the Messages screen
+          navigation.navigate('Messages', { contact });
+        }}
+      >
+        <Text style={styles.messageButtonText}>Message</Text>
+      </TouchableOpacity>
     </>
   );
 };
@@ -135,6 +155,23 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginRight: 120,
     fontSize: 50,
+  },
+  messageButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: '#028391',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 30,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  messageButtonText: {
+    color: '#FFF',
+    fontSize: 16,
   },
 });
 
