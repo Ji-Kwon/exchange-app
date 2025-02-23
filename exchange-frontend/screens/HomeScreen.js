@@ -2,23 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 
 
+
 const HomeScreen = () => {
-
-  const [labels, setLabels] = useState([]);
-
-  useEffect(() => {
-    // Placeholder data to simulate database labels
-    const placeholderLabels = ["Testing", "Accommodations", "Ballsack licker", "Gay buttsex man"];
-    
-    // Simulate database fetch with a delay
-    const fetchLabels = async () => {
-      setTimeout(() => {
-        setLabels(placeholderLabels);  // Use placeholder data for now
-      }, 1000);  // Delay to simulate loading
-    };
-
-    fetchLabels();
-  }, []);
 
   return (
     
@@ -39,7 +24,7 @@ const HomeScreen = () => {
                 <Text style={styles.description}>Description</Text>
                 <Text style={{ fontSize: 20, marginLeft: 10,}}>alksdjfhalskdjfhalskdjfhalsdjfkhasl</Text>
               </View>
-              
+
               <View style={styles.exchange}>
                   <Text style={styles.exchangeHeading}>Exchange Offered</Text>
                   <View>
