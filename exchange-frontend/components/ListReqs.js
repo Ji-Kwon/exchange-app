@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
-export default function Label() { // the big function man
+export default function Skills() { // the big function man
     const [label, setLabel] = useState ([ // the array for all the labels gonna be database stuffs
-        { name: 'Passionate', key: '1' },
-        { name: 'Caring', key: '2' },
+        { name: 'Work Experience', key: '1' },
+        { name: 'Mentoring', key: '2' },
         { name: 'Leadership', key: '3' },
-        { name: 'Travel', key: '4' },
-        { name: 'children', key: '5' },
-        { name: 'Meet New People', key: '6'},
 
     ]);
 

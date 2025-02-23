@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import ListLabels from '../components/ListLabels';
+import ListReqs from '../components/ListReqs';
 import { ConversationsContext } from '../src/context/ConversationsContext'; 
 
 import * as Font from 'expo-font';
@@ -73,7 +74,22 @@ Volunteers at The Hearth play a vital role in creating a supportive and respectf
             <Text style={styles.exchangeHeading}>Exchange Offered</Text>
             <ListLabels />
           </View>
+          <View style={styles.line}>
+            <Text style={styles.lol}>oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</Text>
+          </View>
+
+          <View style={styles.exchange}>
+            <Text style={styles.exchangeHeading}>Skills</Text>
+            <ListReqs />
+          </View>
+
+
+
         </View>
+
+        
+
+        
       </ScrollView>
 
       {/* Message Button */}
@@ -121,6 +137,7 @@ const styles = StyleSheet.create({
   exchange: { 
     marginLeft: 15,
     marginTop: 20,
+    marginBottom: 20,
     width: 350,
     alignItems: 'flex-start',  // Aligns to the left
   },
@@ -188,6 +205,15 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 16,
   },
+  line: {
+    backgroundColor: 'black',
+
+  },
+  lol: {
+    fontSize: 1,
+   
+
+  }
 });
 
 export default HomeScreen;
