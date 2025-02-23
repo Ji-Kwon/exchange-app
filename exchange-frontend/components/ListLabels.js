@@ -18,7 +18,7 @@ export default function Label() { // the big function man
         { label.map((item) => {
             return (
                 <View style={styles.list} key={item.key}>
-                    <Text>{item.name}</Text>
+                    <Text style={styles.text}>{item.name}</Text>
                 </View>
             );
 
@@ -37,11 +37,25 @@ const styles = StyleSheet.create ({
 
     },
     list: {
-        margin: 20,
+        margin: 10,
+       
         
+    },
+
+    text: {
+        backgroundColor: "#FBEED6",
+        padding: 7,
+        borderRadius: 30,
+        borderWidth: 4,
+        borderColor: 'black',
+        fontSize: 15,
+        shadowColor: "#000",        
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        shadowOffset: {height: 5,},
         
-        
-        
+
+
     },
 
 });
