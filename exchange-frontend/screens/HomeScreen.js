@@ -3,25 +3,34 @@ import { View, Text, StyleSheet, Image, ScrollView, FlatList, Dimensions, Toucha
 import ListLabels from '../components/ListLabels';
 import { ConversationsContext } from '../src/context/ConversationsContext'; 
 
+import * as Font from 'expo-font';
+
 const windowWidth = Dimensions.get('window').width;
 
 const images = [
   { 
-    source: require('../assets/images/favourites.png'),
+    source: require('../assets/images/fillerpfp.png'),
     dimensions: { width: 350, height: 300 }
   },
   {
-    uri: 'https://www.pngkey.com/png/detail/233-2332677_image-500580-placeholder-transparent.png',
+    uri: 'https://img.freepik.com/free-photo/volunteers-with-medical-masks-gloves-preparing-boxes-with-food-donation_23-2148732671.jpg',
     title: 'Image 1',
   },
   {
-    uri: 'https://i.imgflip.com/1hnv2v.jpg?a483384',
+    uri: 'https://arrivein.com/wp-content/uploads/2020/04/Benefits-of-volunteering-in-Canada.jpg',
     title: 'Image 2',
   },
 ];
 
 const HomeScreen = ({ navigation }) => {
   const { addConversation } = useContext(ConversationsContext);
+
+  const [fontsLoaded] = Font.useFonts({
+    'SuperMagic-L3XVn': require('../assets/fonts/SuperMagic-L3XVn.ttf'), 
+    'calibri': require('../assets/fonts/calibri.ttf'),
+  });
+
+
 
   const renderItem = ({ item }) => (
     <View style={styles.picture}>
@@ -55,7 +64,9 @@ const HomeScreen = ({ navigation }) => {
 
           <View style={styles.background}>
             <Text style={styles.description}>Description</Text>
-            <Text style={{ fontSize: 20, marginLeft: 10 }}>alksdjfhalskdjfhalskdjfhalsdjfkhasl</Text>
+            <Text numberOfLines={10} style={{ fontSize: 20, marginLeft: 10 }}>The Hearth Community Shelter is a welcoming volunteer hub located in the heart of downtown Vancouver. As a safe haven for those in need, The Hearth provides warm meals, essential supplies, and a sense of community to individuals facing challenging circumstances.
+
+Volunteers at The Hearth play a vital role in creating a supportive and respectful environment. Whether serving meals, organizing clothing donations, or simply offering a listening ear, every volunteer makes a meaningful impact on someone's day.</Text>
           </View>
 
           <View style={styles.exchange}>
@@ -114,8 +125,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',  // Aligns to the left
   },
   exchangeHeading: {
+    
+    
     textAlign: 'left',        
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: 'bold',
   },
 
@@ -152,6 +165,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   title: {
+    fontFamily: 'SuperMagic-L3XVn',
+    color: '#01204E',
     marginTop: 50,
     marginRight: 120,
     fontSize: 50,
