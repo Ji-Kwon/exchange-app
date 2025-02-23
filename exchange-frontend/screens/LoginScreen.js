@@ -1,12 +1,14 @@
 // screens/LoginScreen.js
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from '../src/context/AuthContext';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async () => {
     try {
@@ -16,9 +18,13 @@ const LoginScreen = ({ navigation }) => {
       });
       const token = response.data.token;
       await AsyncStorage.setItem('token', token);
-      Alert.alert('Success', 'Logged in successfully!');
+      // Update authentication state by calling the login function
+      login();
+      Alert.alert('Success', 'Logged in successfully!', [
+        { text: 'OK', onPress: () => navigation.replace('AppTabs') }
+      ]);
     } catch (error) {
-      Alert.alert('Error', error.response.data.error || 'Login failed');
+      Alert.alert('Error', error.response?.data?.error || 'Login failed');
     }
   };
 
