@@ -10,14 +10,17 @@ import {
   TouchableOpacity,
   Platform,
   Keyboard,
+  ScrollView,
 } from 'react-native';
 import axios from 'axios';
 import * as ImagePicker from 'expo-image-picker';
 import { AuthContext } from '../src/context/AuthContext';
+import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = () => {
   // Get the logged-in user's data from your AuthContext
   const { user, setUser, logout } = useContext(AuthContext);
+  const navigation = useNavigation();
 
   // Initialize state with user data from the database
   const [profileImage, setProfileImage] = useState(user?.profile_picture || null);
@@ -70,7 +73,7 @@ const ProfileScreen = () => {
   const pickProfileImage = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        mediaTypes: ['images'],
         allowsEditing: true,
         aspect: [1, 1],
         quality: 1,
@@ -101,93 +104,124 @@ const ProfileScreen = () => {
   };
 
   // Save profile changes (profile image and bio) to the database
-const handleSaveProfile = async () => {
-  try {
-    // Replace with your actual backend URL and endpoint
-    const response = await axios.put(`http://172.20.10.5:5001/api/users/${user.user_id}`, {
-      profile_picture: profileImage,
-      bio: bio,
-    });
-    // Update your AuthContext with the new user data
-    setUser(response.data);
-    console.log('Profile updated:', response.data);
-  } catch (error) {
-    console.log('Error updating profile:', error);
-  }
-};
+  const handleSaveProfile = async () => {
+    try {
+      // Replace with your actual backend URL and endpoint
+      const response = await axios.put(`http://172.20.10.5:5001/api/users/${user.user_id}`, {
+        profile_picture: profileImage,
+        bio: bio,
+      });
+      // Update your AuthContext with the new user data
+      setUser(response.data);
+      console.log('Profile updated:', response.data);
+    } catch (error) {
+      console.log('Error updating profile:', error);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        {/* Header Title */}
-        <Text style={styles.headerTitle}>Profile</Text>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.container}>
+          {/* Header Title */}
+          <Text style={styles.headerTitle}>Profile</Text>
 
-        {/* Profile Picture Section */}
-        <View style={styles.profilePicContainer}>
-          <Image
-            source={
-              profileImage
-                ? { uri: profileImage }
-                : require('../assets/images/fillerpfp.png')
-            }
-            style={styles.profilePic}
-          />
-          <TouchableOpacity style={styles.editIconContainer} onPress={pickProfileImage}>
-            <Text style={styles.editIcon}>✏️</Text>
+          {/* Profile Picture Section */}
+          <View style={styles.profilePicContainer}>
+            <Image
+              source={
+                profileImage
+                  ? { uri: profileImage }
+                  : require('../assets/images/fillerpfp.png')
+              }
+              style={styles.profilePic}
+            />
+            <TouchableOpacity style={styles.editIconContainer} onPress={pickProfileImage}>
+              <Text style={styles.editIcon}>✏️</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Display user's full name from the database */}
+          <Text style={styles.userName}>
+            {user ? `${user.first_name} ${user.last_name}` : 'User Name'}
+          </Text>
+
+          {/* Bio Section */}
+          <Text style={styles.sectionTitle}>Bio About Me</Text>
+          <View style={styles.bioContainer}>
+            {editingBio ? (
+              <>
+                <TextInput
+                  style={[styles.bioInput, styles.editableBio]}
+                  placeholder="Enter your bio..."
+                  multiline
+                  value={bioText}
+                  onChangeText={(text) => setBioText(text)}
+                />
+                <TouchableOpacity style={styles.doneButton} onPress={handleDoneBio}>
+                  <Text style={styles.doneButtonText}>Done</Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <TouchableOpacity style={styles.bioDisplayContainer} onPress={handleEditBio}>
+                <Text style={styles.bioDisplayText}>{bio || 'Tap to add your bio'}</Text>
+                <Text style={styles.editBioIcon}>✏️</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+
+          {/* Skills Section */}
+          <Text style={styles.sectionTitle}>Skills</Text>
+          <View style={styles.skillsContainer}>
+            {user.skills && user.skills.length > 0 ? (
+              user.skills.map((skill, index) => (
+                <View key={index} style={styles.skillLabel}>
+                  <Text style={styles.skillLabelText}>{skill}</Text>
+                </View>
+              ))
+            ) : (
+              <Text style={styles.noSkillsText}>No skills selected.</Text>
+            )}
+          </View>
+          <TouchableOpacity
+            style={styles.sectionRow}
+            onPress={() => navigation.navigate('SkillsScreen')}
+          >
+            <Text style={styles.sectionLabel}>Edit Skills</Text>
+            <Text style={styles.sectionArrow}>›</Text>
+          </TouchableOpacity>
+
+
+          <Text style={styles.sectionTitle}>Interests</Text>
+          <View style={styles.interestsContainer}>
+            {user.interests && user.interests.length > 0 ? (
+              user.interests.map((interest, index) => (
+                <View key={index} style={styles.interestLabel}>
+                  <Text style={styles.interestLabelText}>{interest}</Text>
+                </View>
+              ))
+            ) : (
+              <Text style={styles.noInterestsText}>No interests selected.</Text>
+            )}
+          </View>
+          <TouchableOpacity
+            style={styles.sectionRow}
+            onPress={() => navigation.navigate('InterestsScreen')}
+          >
+            <Text style={styles.sectionLabel}>Edit Interests</Text>
+            <Text style={styles.sectionArrow}>›</Text>
+          </TouchableOpacity>
+          {/* Save Profile Button */}
+          <TouchableOpacity style={styles.saveButton} onPress={handleSaveProfile}>
+            <Text style={styles.saveButtonText}>Save Profile</Text>
+          </TouchableOpacity>
+
+          {/* Logout Button */}
+          <TouchableOpacity style={styles.logoutButton} onPress={logout}>
+            <Text style={styles.logoutButtonText}>Logout</Text>
           </TouchableOpacity>
         </View>
-
-        {/* Display user's full name from the database */}
-        <Text style={styles.userName}>
-          {user ? `${user.first_name} ${user.last_name}` : 'User Name'}
-        </Text>
-
-        {/* Bio Section */}
-        <Text style={styles.sectionTitle}>Bio About Me</Text>
-        <View style={styles.bioContainer}>
-          {editingBio ? (
-            <>
-              <TextInput
-                style={[styles.bioInput, styles.editableBio]}
-                placeholder="Enter your bio..."
-                multiline
-                value={bioText}
-                onChangeText={(text) => setBioText(text)}
-              />
-              <TouchableOpacity style={styles.doneButton} onPress={handleDoneBio}>
-                <Text style={styles.doneButtonText}>Done</Text>
-              </TouchableOpacity>
-            </>
-          ) : (
-            <TouchableOpacity style={styles.bioDisplayContainer} onPress={handleEditBio}>
-              <Text style={styles.bioDisplayText}>{bio || 'Tap to add your bio'}</Text>
-              <Text style={styles.editBioIcon}>✏️</Text>
-            </TouchableOpacity>
-          )}
-        </View>
-
-        {/* Skills Section (placeholder) */}
-        <TouchableOpacity style={styles.sectionRow}>
-          <Text style={styles.sectionLabel}>Skills</Text>
-          <Text style={styles.sectionArrow}>›</Text>
-        </TouchableOpacity>
-
-        {/* Interests Section (placeholder) */}
-        <TouchableOpacity style={styles.sectionRow}>
-          <Text style={styles.sectionLabel}>Interests</Text>
-          <Text style={styles.sectionArrow}>›</Text>
-        </TouchableOpacity>
-
-        {/* Save Profile Button */}
-        <TouchableOpacity style={styles.saveButton} onPress={handleSaveProfile}>
-          <Text style={styles.saveButtonText}>Save Profile</Text>
-        </TouchableOpacity>
-
-        {/* Logout Button */}
-        <TouchableOpacity style={styles.logoutButton} onPress={logout}>
-          <Text style={styles.logoutButtonText}>Logout</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -293,6 +327,49 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: '#028391',
   },
+  skillsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 20,
+  },
+  skillLabel: {
+    backgroundColor: '#028391',
+    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    margin: 5,
+  },
+  skillLabelText: {
+    color: '#FFF',
+    fontSize: 14,
+  },
+  noSkillsText: {
+    color: '#666',
+    fontSize: 16,
+    fontStyle: 'italic',
+  },
+  interestsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 20,
+  },
+  interestLabel: {
+    backgroundColor: '#028391',
+    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    margin: 5,
+  },
+  interestLabelText: {
+    color: '#FFF',
+    fontSize: 14,
+  },
+  noInterestsText: {
+    color: '#666',
+    fontSize: 16,
+    fontStyle: 'italic',
+  },
+
   sectionRow: {
     width: '100%',
     flexDirection: 'row',

@@ -10,18 +10,21 @@ exports.getAllUsers = async(req, res) => {
 };
 
 exports.getUserById = async(req, res) => {
-    try{
-        const { id } = req.params;
-        const user = await User.findByPk(id);
+  try{
+      const { id } = req.params;
+      const user = await User.findByPk(id, {
+        attributes: ['user_id', 'first_name', 'last_name', 'email', 'profile_picture', 'bio', 'skills', 'interests']
+      });
 
-        if(!user){
-            return res.status(404).json({ error: 'User not found' });
-        }
-        res.status(200).json(user);
-    }catch(error){
-        res.status(500).json({ error: error.message });
-    }
+      if(!user){
+          return res.status(404).json({ error: 'User not found' });
+      }
+      res.status(200).json(user);
+  }catch(error){
+      res.status(500).json({ error: error.message });
+  }
 };
+
 
 exports.createUser = async(req,res) => {
     try {
@@ -49,6 +52,12 @@ exports.updateUser = async (req, res) => {
     }
     if (req.body.last_name !== undefined) {
       updateFields.last_name = req.body.last_name;
+    }
+    if (req.body.skills !== undefined) {
+      updateFields.skills = req.body.skills;
+    }
+    if (req.body.interests !== undefined) {
+      updateFields.interests = req.body.interests;
     }
 
     const [updated] = await User.update(updateFields, {

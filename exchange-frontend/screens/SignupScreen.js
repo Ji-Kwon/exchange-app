@@ -7,7 +7,6 @@ const SignupScreen = ({ navigation }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignup = async () => {
@@ -17,7 +16,6 @@ const SignupScreen = ({ navigation }) => {
         first_name: firstName,
         last_name: lastName,
         email,
-        phone_number: phoneNumber,
         password,
       });
       console.log("Signup successful:", response.data); 
@@ -51,12 +49,6 @@ const SignupScreen = ({ navigation }) => {
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        value={phoneNumber}
-        onChangeText={setPhoneNumber}
       />
       <TextInput
         style={styles.input}

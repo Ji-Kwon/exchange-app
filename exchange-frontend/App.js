@@ -4,9 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, StyleSheet } from 'react-native';
-import HomeStackNavigator from './src/navigation/HomeStack'; // HomeStackNavigator includes HomeScreen and DMScreen
+import HomeStackNavigator from './src/navigation/HomeStack';
 import MessagesScreen from './screens/MessagesScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import SkillsScreen from './screens/SkillsScreen'; // <-- Add this
+import InterestsScreen from './screens/InterestsScreen'; // <-- Add this
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import { AuthProvider, AuthContext } from './src/context/AuthContext';
@@ -70,7 +72,11 @@ const MainNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isLoggedIn ? (
-          <Stack.Screen name="AppTabs" component={AppTabs} />
+          <>
+            <Stack.Screen name="AppTabs" component={AppTabs} />
+            <Stack.Screen name="SkillsScreen" component={SkillsScreen} />
+            <Stack.Screen name="InterestsScreen" component={InterestsScreen} />
+          </>
         ) : (
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
