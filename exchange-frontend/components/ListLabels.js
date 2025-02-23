@@ -13,14 +13,14 @@ export default function Label() { // the big function man
     ]);
 
     return (
-        <View style={style.container}>
+        <View style={styles.container} >
             
         { label.map((item) => {
             return (
-                <View key={item.key}>
+                <View style={styles.list} key={item.key}>
                     <Text>{item.name}</Text>
                 </View>
-            )
+            );
 
         })};
 
@@ -28,10 +28,20 @@ export default function Label() { // the big function man
     );
 }
 
-const style = StyleSheet.create ({
+const styles = StyleSheet.create ({
     container: {
-    
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        
 
+    },
+    list: {
+        margin: 20,
+        
+        
+        
+        
     },
 
 });

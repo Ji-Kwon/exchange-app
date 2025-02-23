@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import ListLabels from '../components/ListLabels';
 
 
 
@@ -27,6 +28,7 @@ const HomeScreen = () => {
 
               <View style={styles.exchange}>
                   <Text style={styles.exchangeHeading}>Exchange Offered</Text>
+                  <ListLabels/>
                   <View>
                       
                   </View>
