@@ -33,19 +33,35 @@ exports.createUser = async(req,res) => {
 };
 
 exports.updateUser = async (req, res) => {
-    try {
-      const { id } = req.params;
-      const [updated] = await User.update(req.body, {
-        where: { user_id: id },
-      });
-      if (!updated) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-      const updatedUser = await User.findByPk(id);
-      res.status(200).json(updatedUser);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+  try {
+    const { id } = req.params;
+    // Build an object with only the fields that are provided in the request
+    const updateFields = {};
+    if (req.body.bio !== undefined) {
+      updateFields.bio = req.body.bio;
     }
+    if (req.body.profile_picture !== undefined) {
+      updateFields.profile_picture = req.body.profile_picture;
+    }
+    // Optionally, update first_name and last_name if provided
+    if (req.body.first_name !== undefined) {
+      updateFields.first_name = req.body.first_name;
+    }
+    if (req.body.last_name !== undefined) {
+      updateFields.last_name = req.body.last_name;
+    }
+
+    const [updated] = await User.update(updateFields, {
+      where: { user_id: id },
+    });
+    if (!updated) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    const updatedUser = await User.findByPk(id);
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 exports.deleteUser = async (req, res) => {

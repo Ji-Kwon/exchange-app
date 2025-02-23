@@ -4,13 +4,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Image, StyleSheet } from 'react-native';
-import HomeScreen from './screens/HomeScreen';
-import FavouritesScreen from './screens/FavouritesScreen';
+import HomeStackNavigator from './src/navigation/HomeStack'; // HomeStackNavigator includes HomeScreen and DMScreen
 import MessagesScreen from './screens/MessagesScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import LoginScreen from './screens/LoginScreen';
-import { AuthProvider, AuthContext } from './src/context/AuthContext';
 import SignupScreen from './screens/SignupScreen';
+import { AuthProvider, AuthContext } from './src/context/AuthContext';
+import { ConversationsProvider } from './src/context/ConversationsContext';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,8 +24,6 @@ const AppTabs = () => {
 
           if (route.name === 'Home') {
             iconSource = require('./assets/images/home.png');
-          } else if (route.name === 'Favourites') {
-            iconSource = require('./assets/images/favourites.png');
           } else if (route.name === 'Messages') {
             iconSource = require('./assets/images/messages.png');
           } else if (route.name === 'Profile') {
@@ -58,8 +56,7 @@ const AppTabs = () => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Favourites" component={FavouritesScreen} />
+      <Tab.Screen name="Home" component={HomeStackNavigator} />
       <Tab.Screen name="Messages" component={MessagesScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -88,7 +85,9 @@ const MainNavigator = () => {
 export default function App() {
   return (
     <AuthProvider>
-      <MainNavigator />
+      <ConversationsProvider>
+        <MainNavigator />
+      </ConversationsProvider>
     </AuthProvider>
   );
 }

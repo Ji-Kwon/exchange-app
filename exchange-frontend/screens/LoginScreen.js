@@ -1,4 +1,3 @@
-// screens/LoginScreen.js
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import axios from 'axios';
@@ -17,12 +16,11 @@ const LoginScreen = ({ navigation }) => {
         password,
       });
       const token = response.data.token;
+      const userData = response.data.user; // Now returned from the backend
       await AsyncStorage.setItem('token', token);
-      // Update authentication state by calling the login function
-      login();
-      Alert.alert('Success', 'Logged in successfully!', [
-        { text: 'OK', onPress: () => navigation.replace('AppTabs') }
-      ]);
+      login(userData); // Update AuthContext with the user details
+      Alert.alert('Success', 'Logged in successfully!');
+      // No manual navigation; MainNavigator will automatically show AppTabs
     } catch (error) {
       Alert.alert('Error', error.response?.data?.error || 'Login failed');
     }
