@@ -59,7 +59,7 @@ const MessagesScreen = ({ navigation, route }) => {
               source={
                 selectedContact.image
                   ? { uri: selectedContact.image }
-                  : require('../assets/images/blackdudeskissing.png')
+                  : require('../assets/images/fillerpfp.png')
               }
             />
             <Text style={styles.chatHeaderText}>{selectedContact.name}</Text>
@@ -104,7 +104,7 @@ const MessagesScreen = ({ navigation, route }) => {
           source={
             item.contact.image
               ? { uri: item.contact.image }
-              : require('../assets/images/blackdudeskissing.png')
+              : require('../assets/images/fillerpfp.png')
           }
         />
         <View style={styles.conversationTextContainer}>

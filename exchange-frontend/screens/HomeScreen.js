@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, FlatList, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, SafeAreaView, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import ListLabels from '../components/ListLabels';
 import ListReqs from '../components/ListReqs';
 import { ConversationsContext } from '../src/context/ConversationsContext'; 
@@ -45,9 +45,10 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.container}>
-          
+            
           <View>
             <Text style={styles.title}>Exchange</Text>
           </View>
@@ -67,7 +68,7 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.description}>Description</Text>
             <Text numberOfLines={10} style={{ fontSize: 20, marginLeft: 10 }}>The Hearth Community Shelter is a welcoming volunteer hub located in the heart of downtown Vancouver. As a safe haven for those in need, The Hearth provides warm meals, essential supplies, and a sense of community to individuals facing challenging circumstances.
 
-Volunteers at The Hearth play a vital role in creating a supportive and respectful environment. Whether serving meals, organizing clothing donations, or simply offering a listening ear, every volunteer makes a meaningful impact on someone's day.</Text>
+  Volunteers at The Hearth play a vital role in creating a supportive and respectful environment. Whether serving meals, organizing clothing donations, or simply offering a listening ear, every volunteer makes a meaningful impact on someone's day.</Text>
           </View>
 
           <View style={styles.exchange}>
@@ -86,17 +87,13 @@ Volunteers at The Hearth play a vital role in creating a supportive and respectf
 
 
         </View>
-
-        
-
-        
       </ScrollView>
-
+    </SafeAreaView>
       {/* Message Button */}
       <TouchableOpacity 
         style={styles.messageButton}
         onPress={() => {
-          // Add the conversation if it doesn't exist yet
+        // Add the conversation if it doesn't exist yet
           const contact = {
             id: 101, 
             name: 'Chat Support', 
@@ -114,8 +111,16 @@ Volunteers at The Hearth play a vital role in creating a supportive and respectf
 };
 
 const styles = StyleSheet.create({
-  scrollContainer: {
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#F6DCAC',
+  },
+  scrollView: {
+    backgroundColor: '#F6DCAC',
+  },
+  scrollContainer: { 
     flexGrow: 1,
+    backgroundColor: '#F6DCAC',
   },
   container: {
     paddingBottom: 20,
@@ -145,7 +150,7 @@ const styles = StyleSheet.create({
     
     
     textAlign: 'left',        
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
   },
 
@@ -184,9 +189,9 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'SuperMagic-L3XVn',
     color: '#01204E',
-    marginTop: 50,
-    marginRight: 120,
-    fontSize: 50,
+    marginTop: 60,
+    marginRight: 160,
+    fontSize: 40,
   },
   messageButton: {
     position: 'absolute',
